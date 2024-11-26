@@ -46,7 +46,7 @@ sub import {
 ##############################################
 #
 # Get a Template Toolkit object.  The same object
-# will be returned everytime this method is called
+# will be returned every time this method is called
 # during a request cycle.
 #
 sub tt_obj {
@@ -565,7 +565,7 @@ for the L<Template> module for the exact syntax of the parameters, or see below 
 
 This allows you to provide your own method for auto-generating the template filename.  It requires
 a reference to a function that will be passed the $self object as it's only parameter.  This function
-will be called everytime $self->tt_process is called without providing the filename of the template
+will be called every time $self->tt_process is called without providing the filename of the template
 to process.  This can standardize the way templates are organized and structured by making the
 template filenames follow a predefined pattern.
 
@@ -577,7 +577,7 @@ module name, and the runmode.
 
 This options allows you to specify a directory (or an array of directories) to
 search when this module is loaded and then compile all files found into memory.
-This provides a speed boost in persistant environments (mod_perl, fast-cgi) and
+This provides a speed boost in persistent environments (mod_perl, fast-cgi) and
 can improve memory usage in environments that use shared memory (mod_perl).
 
 =item TEMPLATE_PRECOMPILE_FILETEST
@@ -611,7 +611,7 @@ $file = shift; ... } ).
 =head2 tt_obj
 
 This method will return the underlying Template Toolkit object that is used
-behind the scenes.  It is usually not necesary to use this object directly,
+behind the scenes.  It is usually not necessary to use this object directly,
 as you can process templates and configure the Template object through
 the tt_process and tt_config methods.  Every call to this method will
 return the same object during a single request.
@@ -625,9 +625,9 @@ in the processing of every call to tt_process.  It is important to note that
 the parameters defined using tt_params will be passed to every template that is
 processed during a given request cycle.  Usually only one template is processed
 per request, but it is entirely possible to call tt_process multiple times with
-different templates.  Everytime tt_process is called, the hashref of parameters
+different templates.  Every time tt_process is called, the hashref of parameters
 passed to tt_process will be merged with the parameters set using the tt_params
-method.  Parameters passed through tt_process will have precidence in case of
+method.  Parameters passed through tt_process will have precedence in case of
 duplicate parameters.
 
 This can be useful to add global values to your templates, for example passing
@@ -728,7 +728,7 @@ you if you do not pass a template name, so the above can be reduced to this:
  }
 
 Since the path is generated based on the name of the module, you could place all of your templates
-in the same directory as your perl modules, and then pass @INC as your INCLUDE_PATH parameter.
+in the same directory as your Perl modules, and then pass @INC as your INCLUDE_PATH parameter.
 Whether that is actually a good idea is left up to the reader.
 
  $self->tt_include_path(\@INC);
@@ -773,7 +773,7 @@ plugin, which gives easy access to the very powerful prototype.js JavaScript lib
   <a href="#" onclick="javascript:[% c.prototype.visual_effect( 'Appear', 'extra_info' ) %] return false;">Extra Info</a>
   <div style="display: none" id="extra_info">Here is some more extra info</div>
 
-With this extra flexibility comes some responsibilty as well.  It could lead down a
+With this extra flexibility comes some responsibility as well.  It could lead down a
 dangerous path if you start making alterations to your object from within the template.
 For example you could call c.header_add to add new outgoing headers, but that is something
 that should be left in your code, not in your template.  Try to limit yourself to
@@ -867,11 +867,11 @@ In a CGI::Application module:
 Creating a Template Toolkit object can be an expensive operation if it needs to be done for every
 request.  This startup cost increases dramatically as the number of templates you use
 increases.  The reason for this is that when TT loads and parses a template, it
-generates actual perlcode to do the rendering of that template.  This means that the rendering of
+generates actual Perl code to do the rendering of that template.  This means that the rendering of
 the template is extremely fast, but the initial parsing of the templates can be inefficient.  Even
-by using the builting caching mechanism that TT provides only writes the generated perl code to
+by using the built-in caching mechanism that TT provides only writes the generated Perl code to
 the filesystem.  The next time a TT object is created, it will need to load these templates from disk,
-and eval the sourcecode that they contain.
+and eval the source code that they contain.
 
 So to improve the efficiency of Template Toolkit, we should keep the object (and hence all the compiled
 templates) in memory across multiple requests.  This means you only get hit with the startup cost
